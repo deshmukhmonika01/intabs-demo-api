@@ -53,4 +53,12 @@ public class City {
     public void setLanguage(String language) {
         this.language = language;
     }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 }

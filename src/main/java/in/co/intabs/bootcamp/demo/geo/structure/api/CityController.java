@@ -29,6 +29,10 @@ public class CityController {
     // Update City (name/State/language) - PUT
 
     // Delete City
+    @RequestMapping(value = "/delete/{cityId}", method = RequestMethod.DELETE)
+    public boolean deleteCity(@PathVariable Long cityId) {
+        return cityService.deleteCity(cityId);
+    }
 
     // Get By Id - City
 
@@ -40,4 +44,8 @@ public class CityController {
     // Add attribute as 'isDeleted' of type Boolean to City
     // Delete City  No Hard Record deletion - just make this flag as True
     // Get All Non Deleted cities
+    @RequestMapping(value = "/delete-soft/{cityId}", method = RequestMethod.DELETE)
+    public City deleteCitySoft(@PathVariable Long cityId) {
+        return cityService.deleteCitySoft(cityId);
+    }
 }
