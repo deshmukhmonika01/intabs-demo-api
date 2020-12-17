@@ -28,6 +28,10 @@ public class CityController {
     }
 
     // Update City (name/State/language) - PUT
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public City updateCity(@RequestBody CityDto cityDto,@PathVariable Long id) {
+        return cityService.updateCity(cityDto,id);
+    }
 
     // Get By Id - City
     @RequestMapping(value = "/getCity/{id}", method = RequestMethod.GET)
@@ -63,16 +67,7 @@ public class CityController {
         return city;
     }
 
-
-
-
-
-
-
-
-
     // Delete City  No Hard Record deletion - just make this flag as True
-
     @RequestMapping(value = "/delete-soft/{cityId}", method = RequestMethod.DELETE)
     public City deleteCitySoft(@PathVariable Long cityId) {
         return cityService.deleteCitySoft(cityId);
@@ -83,5 +78,6 @@ public class CityController {
     public List<City> GetAllNonDeletedCity() {
         return cityService.findByIsDeletedFalse();
     }
+
 
 }
