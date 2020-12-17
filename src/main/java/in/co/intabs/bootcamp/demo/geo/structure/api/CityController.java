@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -28,24 +29,59 @@ public class CityController {
 
     // Update City (name/State/language) - PUT
 
+    // Get By Id - City
+    @RequestMapping(value = "/getCity/{id}", method = RequestMethod.GET)
+    public Optional<City> GetCityById(@PathVariable Long id){
+        return cityService.GetCityById(id);
+    }
+
     // Delete City
     @RequestMapping(value = "/delete/{cityId}", method = RequestMethod.DELETE)
     public boolean deleteCity(@PathVariable Long cityId) {
         return cityService.deleteCity(cityId);
     }
 
-    // Get By Id - City
+    // Get All Cities arranged asc alphabetical order
+    @RequestMapping(value = "/ascending", method = RequestMethod.GET)
+    public List<City> getCitiesByNameAsc() {
+
+        return cityService.findAllOrderByNameAsc();
+    }
+
+    // Get All Cities arranged Desc alphabetical order
+    @RequestMapping(value = "/descending", method = RequestMethod.GET)
+    public List<City> getCitiesByNameDesc() {
+
+        return cityService.findAllOrderByNameDesc();
+    }
 
     // Get By Language - List<City>
+    @RequestMapping(value ="/{language}",method = RequestMethod.GET)
+    public List<City> findCityByLanguage(@PathVariable String language) {
 
-    // Get All Cities arranged asc alphabetical order
-    // Get All Cities arranged Desc alphabetical order
+        List<City> city = cityService.findByLanguage(language);
+        return city;
+    }
 
-    // Add attribute as 'isDeleted' of type Boolean to City
+
+
+
+
+
+
+
+
     // Delete City  No Hard Record deletion - just make this flag as True
-    // Get All Non Deleted cities
+
     @RequestMapping(value = "/delete-soft/{cityId}", method = RequestMethod.DELETE)
     public City deleteCitySoft(@PathVariable Long cityId) {
         return cityService.deleteCitySoft(cityId);
     }
+
+    // Get All Non Deleted cities
+    @RequestMapping(value = "/is-deleted", method = RequestMethod.GET)
+    public List<City> GetAllNonDeletedCity() {
+        return cityService.findByIsDeletedFalse();
+    }
+
 }

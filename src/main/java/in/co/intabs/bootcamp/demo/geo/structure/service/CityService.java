@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CityService {
@@ -41,4 +42,26 @@ public class CityService {
         city.setDeleted(true);
         return cityRepository.save(city);
     }
+
+    public Optional<City> GetCityById(Long id) {
+        Optional<City> city = cityRepository.findById(id);
+        return city;
+    }
+
+    public List<City> findAllOrderByNameAsc() {
+        return cityRepository.findAllOrderByNameAsc();
+    }
+
+    public List<City> findAllOrderByNameDesc() { return cityRepository.findAllOrderByNameDesc(); }
+
+    public List<City> findByLanguage(String language) {
+
+        List<City> city = cityRepository.findByLanguage(language);
+        return city;
+    }
+
+    public List<City> findByIsDeletedFalse() {
+        return cityRepository.findByIsDeletedFalse();
+    }
+
 }
